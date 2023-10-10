@@ -10,4 +10,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send(`Hello World! It's version port : ${PORT}`);
 });
 
+app.get("/abc", (req: Request, res: Response) => {
+  res.send(`abc comment+`);
+});
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
