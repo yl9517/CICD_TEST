@@ -1,5 +1,4 @@
 name: Production env Notification Comments
-
 on:
   pull_request:
     branches:
@@ -8,8 +7,12 @@ on:
 jobs:
   check-commit:
     runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.check.outputs.result }}
+      version: ${{ steps.get-version.outputs.version }}
     steps:
       - uses: actions/checkout@v3
-      - name: Commit Message
-          run: echo "This is Production env"
-          shell: bash
+      - name: Check commit message
+        id: check
+        run: echo "result=$(echo 'This is Production env" >> $GITHUB_OUTPUT
+        shell: bash
