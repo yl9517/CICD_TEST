@@ -12,5 +12,5 @@ jobs:
         uses: thollander/actions-comment-pull-request@v1
         with:
           message: |
-            상용망입니다.. :mag_right:
+            🔆 상용망 PR 입니다.🔆
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
