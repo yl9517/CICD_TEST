@@ -8,16 +8,9 @@ on:
 jobs:
   check-commit:
     runs-on: ubuntu-latest
-    outputs:
-      result: ${{ steps.check.outputs.result }}
-      version: ${{ steps.get-version.outputs.version }}
     steps:
       - uses: actions/checkout@v3
-      - name: Check commit message
-        id: check
-        run: echo "result=$(echo '${{ github.event.head_commit.message }}' | grep -oP '^Update version to v(\d|\.)+$')" >> $GITHUB_OUTPUT
-        shell: bash
-      - name: Get version
-        id: get-version
-        run: echo "version=$(echo '${{ github.event.head_commit.message }}' | grep -oP 'v(\d|\.)+')" >> $GITHUB_OUTPUT
-        shell: bash
+      - name: Get Commit Message
+          run: |
+            MSG=$(git log --format=%B -n 1 ${{github.event.after}})
+            echo "::set-env name=COMMIT_MESSAGE::${MSG}"
