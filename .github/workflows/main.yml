@@ -1,15 +1,14 @@
-name: Auto-assign Reviewer
+name: Production env Notification Comments
+
 on:
   pull_request:
     branches:
-      - main # 자신이 원하는 브랜치로 변경
+      - main
 
 jobs:
-  start-commenting:
+  check-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: start-commenting
-        uses: thollander/actions-comment-pull-request@v1
-        with:
-          message: |
-            🔆 상용망 PR 입니다.🔆
+      - uses: actions/checkout@v3
+      - name: Check commit message
+        run: echo ${{ github.base_ref }}
