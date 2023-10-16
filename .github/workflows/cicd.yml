@@ -1,45 +1,23 @@
-name: CI/CD Pipeline
+name: Create tag and release
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
 jobs:
-  build:
+  check-commit:
     runs-on: ubuntu-latest
-
+    outputs:
+      result: ${{ steps.check.outputs.result }}
+      version: ${{ steps.get-version.outputs.version }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # 여기에 빌드 및 테스트 단계를 추가
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # 배포 작업을 여기에 추가
-
-  merge-check:
-    needs: [build]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check PR approvals
-        run: |
-          PR_ID=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
-          APPROVALS=$(gh pr review-list $PR_ID --json state,user.login --jq 'map(select(.state == "APPROVED")) | length')
-
-          if [ "$APPROVALS" -ge 1 ]; then
-            echo "PR has at least one approval."
-          else
-            echo "PR does not have the required approvals."
-            exit 1
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+      - uses: actions/checkout@v3
+      - name: Check commit message
+        id: check
+        run: echo "result=$(echo '${{ github.event.head_commit.message }}' | grep -oP '^Update version to v(\d|\.)+$')" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: Get version
+        id: get-version
+        run: echo "version=$(echo '${{ github.event.head_commit.message }}' | grep -oP 'v(\d|\.)+')" >> $GITHUB_OUTPUT
+        shell: bash
