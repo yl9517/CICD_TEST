@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: wow-actions/auto-comment@v1
+      - name: check-prod-comment
         with:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           pullRequestOpened: |
             👋 @{{ author }}
             상용망입니다.
-            Please make sure you have followed our contributing guidelines. We will review it as soon as possible
