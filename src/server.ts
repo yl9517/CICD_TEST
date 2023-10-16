@@ -9,6 +9,9 @@ app.use(bodyParser.json());
 app.get("/", (req: Request, res: Response) => {
   res.send(`Hello World! It's version port : ${PORT}`);
 });
+app.get("/hello", (req: Request, res: Response) => {
+  res.send(`Hello World! It's version port : ${PORT}`);
+});
 
 app.get("/abc3", (req: Request, res: Response) => {
   res.send(`abc comment+`);
