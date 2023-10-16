@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: wow-actions/auto-comment@v1
         with:
-          GITHUB_TOKEN: ${{ secrets.ACTION_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           pullRequestOpenedReactions: "+1"
           pullRequestOpenedComment: |
-            LGTM 👍(･ω･)👍
+            상용망입니다 👍(･ω･)👍
