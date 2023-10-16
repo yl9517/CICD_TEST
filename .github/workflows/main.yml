@@ -13,4 +13,3 @@ jobs:
         with:
           message: |
             🔆 상용망 PR 입니다.🔆
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
