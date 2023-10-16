@@ -14,7 +14,7 @@ jobs:
       - name: Add reviewer
         run: |
           PR_NUMBER=$(curl -s -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
             -d "{\"reviewers\":[\"$GITHUB_ACTOR\"]}" \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls" | jq -r '.number')
 
