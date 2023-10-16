@@ -1,6 +1,6 @@
 name: Auto-assign Reviewer
 on:
-  pull_request:
+  push:
     branches:
       - main # 자신이 원하는 브랜치로 변경
 
