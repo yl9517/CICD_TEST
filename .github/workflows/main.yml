@@ -19,3 +19,12 @@ jobs:
             "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls" | jq -r '.number')
 
           echo "Added $GITHUB_ACTOR as a reviewer to PR #$PR_NUMBER"
+
+  convert-to-draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: raviraipuria/convert-to-draft@v1.0.1
+        with:
+          repo-token: ${{ secrets.GIT_TOKEN }}
+          days-before-convert-draft: 1
+          draft-pr-msg: "This PR is converted to draft because it has been opened from past 1 days with no activity"
