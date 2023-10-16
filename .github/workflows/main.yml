@@ -1,6 +1,6 @@
 name: Auto-assign Reviewer
 on:
-  push:
+  pull_request:
     branches:
       - main # 자신이 원하는 브랜치로 변경
 
@@ -12,5 +12,5 @@ jobs:
         uses: thollander/actions-comment-pull-request@v1
         with:
           message: |
-            상용망입니다. :mag_right:
+            상용망입니다.. :mag_right:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
