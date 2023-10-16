@@ -1,15 +1,23 @@
-name: Auto-assign Reviewer
+name: Production env Notification Comments
+
 on:
   pull_request:
     branches:
-      - main # 자신이 원하는 브랜치로 변경
+      - main
 
 jobs:
-  start-commenting:
+  check-commit:
     runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.check.outputs.result }}
+      version: ${{ steps.get-version.outputs.version }}
     steps:
-      - name: start-commenting
-        uses: thollander/actions-comment-pull-request@v1
-        with:
-          message: |
-            🔆 상용망 PR 입니다.🔆
+      - uses: actions/checkout@v3
+      - name: Check commit message
+        id: check
+        run: echo "result=$(echo '${{ github.event.head_commit.message }}' | grep -oP '^Update version to v(\d|\.)+$')" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: Get version
+        id: get-version
+        run: echo "version=$(echo '${{ github.event.head_commit.message }}' | grep -oP 'v(\d|\.)+')" >> $GITHUB_OUTPUT
+        shell: bash
