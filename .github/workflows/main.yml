@@ -1,14 +1,21 @@
-name: Review Assign
-
+name: Auto-assign Reviewer
 on:
-  pull_request:
-    branches: ['main']
+  push:
+    branches:
+      - main # 자신이 원하는 브랜치로 변경
 
 jobs:
-  assign:
+  assign-reviewer:
     runs-on: ubuntu-latest
     steps:
-      - uses: hkusu/review-assign-action@v1
-        with:
-          assignees: ${{ github.actor }} # assign pull request author
-          reviewers: ${{ github.actor }}
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Add reviewer
+        run: |
+          PR_NUMBER=$(curl -s -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -d "{\"reviewers\":[\"$GITHUB_ACTOR\"]}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls" | jq -r '.number')
+
+          echo "Added $GITHUB_ACTOR as a reviewer to PR #$PR_NUMBER"
