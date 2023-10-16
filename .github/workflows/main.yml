@@ -5,17 +5,15 @@ on:
       - main # 자신이 원하는 브랜치로 변경
 
 jobs:
-  assign-reviewer:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Add reviewer
-        run: |
-          PR_NUMBER=$(curl -s -X POST \
-            -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
-            -d "{\"reviewers\":[\"$GITHUB_ACTOR\"]}" \
-            "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls" | jq -r '.number')
-
-          echo "Added $GITHUB_ACTOR as a reviewer to PR #$PR_NUMBER"
+ create-comment: Add deploy comment
+  if: contains(github.event.comment.body, '상용망입니다.')   # check the comment if it contains the keywords
+  uses: actions/github-script@v5
+  with:
+    github-token: ${{secrets.GIT_TOKEN}}
+    script: |
+      github.rest.issues.createComment({
+        issue_number: context.issue.number,
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        body: '🚀'
+      })
