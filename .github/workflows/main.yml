@@ -10,10 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.check.outputs.result }}
-      version: ${{ steps.get-version.outputs.version }}
     steps:
       - uses: actions/checkout@v3
       - name: Check commit message
-        id: check
-        run: echo "result=$(echo 'This is Production env')" >> $GITHUB_OUTPUT
-        shell: bash
+        run: echo "This environment is  production"
