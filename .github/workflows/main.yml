@@ -1,8 +1,7 @@
 name: Auto-assign Reviewer
 on:
-  push:
-    branches:
-      - main # 자신이 원하는 브랜치로 변경
+  pull_request:
+    types: [opened]
 
 jobs:
   assign-reviewer:
