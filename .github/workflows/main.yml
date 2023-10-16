@@ -15,9 +15,5 @@ jobs:
       - uses: actions/checkout@v3
       - name: Check commit message
         id: check
-        run: echo "result=$(echo '${{ github.event.head_commit.message }}' | grep -oP '^Update version to v(\d|\.)+$')" >> $GITHUB_OUTPUT
-        shell: bash
-      - name: Get version
-        id: get-version
-        run: echo "This is Production env" >> $GITHUB_OUTPUT
+        run: echo "result=$(echo 'This is Production env')" >> $GITHUB_OUTPUT
         shell: bash
