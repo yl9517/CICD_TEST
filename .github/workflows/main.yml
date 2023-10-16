@@ -1,8 +1,8 @@
 name: Auto-assign Reviewer
 on:
   pull_request:
-    types:
-      - opened
+    branches:
+      - main
 
 jobs:
   run:
@@ -11,6 +11,7 @@ jobs:
       - uses: wow-actions/auto-comment@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
-          pullRequestOpenedReactions: "+1"
-          pullRequestOpenedComment: |
-            상용망입니다 👍(･ω･)👍
+          pullRequestOpened: |
+            👋 @{{ author }}
+            상용망입니다.
+            Please make sure you have followed our contributing guidelines. We will review it as soon as possible
