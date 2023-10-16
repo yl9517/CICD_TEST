@@ -1,19 +1,16 @@
 name: Auto-assign Reviewer
 on:
-  pull_request:
+  push:
     branches:
       - main # 자신이 원하는 브랜치로 변경
 
 jobs:
- create-comment: Add deploy comment
-  if: contains(github.event.comment.body, '상용망입니다.')   # check the comment if it contains the keywords
-  uses: actions/github-script@v5
-  with:
-    github-token: ${{secrets.GIT_TOKEN}}
-    script: |
-      github.rest.issues.createComment({
-        issue_number: context.issue.number,
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        body: '🚀'
-      })
+  start-commenting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: start-commenting
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: |
+            상용망입니다. :mag_right:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
