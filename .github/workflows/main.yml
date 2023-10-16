@@ -8,8 +8,8 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: wow-actions/auto-comment@v1
       - name: check-prod-comment
+      - uses: wow-actions/auto-comment@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           pullRequestOpened: |
