@@ -19,5 +19,5 @@ jobs:
         shell: bash
       - name: Get version
         id: get-version
-        run: echo "version=$(echo '${{ github.event.head_commit.message }}' | grep -oP 'v(\d|\.)+')" >> $GITHUB_OUTPUT
+        run: echo "This is Production env" >> $GITHUB_OUTPUT
         shell: bash
