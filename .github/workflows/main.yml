@@ -11,5 +11,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Commit Message
-          run: |
-            echo "This is Production env"
+          run: echo "This is Production env"
+          shell: bash
